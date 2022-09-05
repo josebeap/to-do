@@ -1,12 +1,12 @@
-import { useEffect } from "react";
+//import { useEffect } from "react";
 import Tarea from "./Tarea";
 
-const ListaTareas = ({ tareas, setTarea }) => {
-  useEffect(() => {
+const ListaTareas = ({ tareas, setTarea, eliminarTarea }) => {
+  /*useEffect(() => {
     if (tareas.length > 0) {
       console.log("Iniciando... :)");
     }
-  }, [tareas]);
+  }, [tareas]);*/
 
   return (
     <div className='md:w-1/2 lg:w-2/5 mx-5 mb-10 md:h-screen overflow-scroll'>
@@ -23,6 +23,7 @@ const ListaTareas = ({ tareas, setTarea }) => {
                 key={tarea.id}
                 tarea={tarea}
                 setTarea={setTarea}
+                eliminarTarea={eliminarTarea}
               />
             );
           })}

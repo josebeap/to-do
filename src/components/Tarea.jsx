@@ -1,11 +1,19 @@
-import { useEffect } from "react";
+//import { useEffect } from "react";
 
-const Tarea = ({ tarea, setTarea }) => {
-  const { titulo, fecha, descripcion } = tarea;
+const Tarea = ({ tarea, setTarea, eliminarTarea }) => {
+  const { titulo, fecha, descripcion, id } = tarea;
 
-  useEffect(() => {
+  /*useEffect(() => {
     console.log(tarea);
-  }, [tarea]);
+  }, [tarea]);*/
+
+  const handleEliminar = (id) => {
+    const respuesta = confirm("¿Desea elñiminar está tarea?");
+
+    if (respuesta) {
+      eliminarTarea(id);
+    }
+  };
 
   return (
     <div className='bg-white shadow-md px-5 py-10 rounded-lg'>
@@ -31,6 +39,8 @@ const Tarea = ({ tarea, setTarea }) => {
         <button
           className='bg-red-600 hover:bg-red-700 mt-4 py-2 px-10 rounded-md text-white font-bold'
           type='button'
+          //onClick={() => eliminarTarea(id)}
+          onClick={handleEliminar}
         >
           Eliminar
         </button>

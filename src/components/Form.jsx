@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import AlertError from "./AlertError";
 
-const Form = ({ tareas, setTareas, tarea }) => {
+const Form = ({ tareas, setTareas, tarea, setTarea }) => {
   const [titulo, setTitulo] = useState("");
   const [fecha, setFecha] = useState("");
   const [descripcion, setDescripcion] = useState("");
@@ -9,7 +9,11 @@ const Form = ({ tareas, setTareas, tarea }) => {
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    console.log(tarea);
+    if (Object.keys(tarea).length > 0) {
+      setTitulo(tarea.titulo);
+      setFecha(tarea.fecha);
+      setDescripcion(tarea.descripcion);
+    }
   }, [tarea]);
 
   const generarId = () => {
@@ -39,11 +43,26 @@ const Form = ({ tareas, setTareas, tarea }) => {
       titulo,
       fecha,
       descripcion,
-      id: generarId(),
     };
 
-    setTareas([...tareas, objetoTareas]);
+    if (tarea.id) {
+      // Editando tarea
 
+      objetoTareas.id = tarea.id;
+
+      const tareasActualizadas = tareas.map((tareaState) =>
+        tareaState.id === tarea.id ? objetoTareas : tareaState
+      );
+
+      setTareas(tareasActualizadas);
+      setTarea({});
+    } else {
+      //Nueva tarea
+      objetoTareas.id = generarId();
+      setTareas([...tareas, objetoTareas]);
+    }
+
+    //Limpiar Formulario
     setTitulo("");
     setFecha("");
     setDescripcion("");
@@ -113,11 +132,20 @@ const Form = ({ tareas, setTareas, tarea }) => {
             onChange={(e) => setDescripcion(e.target.value)}
           />
         </div>
-        <input
-          type='submit'
-          className='bg-blue-600 w-full p-3 text-white uppercase font-bold rounded-md hover:bg-blue-800 transition-colors cursor-pointer'
-          value='Crear Tarea'
-        />
+
+        {!tarea.id ? (
+          <input
+            type='submit'
+            className='bg-blue-600 w-full p-3 text-white uppercase font-bold rounded-md hover:bg-blue-800 transition-colors cursor-pointer'
+            value='Crear Tarea'
+          />
+        ) : (
+          <input
+            type='submit'
+            className='bg-purple-600 w-full p-3 text-white uppercase font-bold rounded-md hover:bg-purple-700 transition-colors cursor-pointer'
+            value='Actualizar Tarea'
+          />
+        )}
       </form>
     </div>
   );
