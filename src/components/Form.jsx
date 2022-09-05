@@ -1,12 +1,23 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import AlertError from "./AlertError";
 
-const Form = () => {
+const Form = ({ tareas, setTareas, tarea }) => {
   const [titulo, setTitulo] = useState("");
   const [fecha, setFecha] = useState("");
   const [descripcion, setDescripcion] = useState("");
 
   const [error, setError] = useState(false);
 
+  useEffect(() => {
+    console.log(tarea);
+  }, [tarea]);
+
+  const generarId = () => {
+    const id = Math.random().toString(20).substr(2);
+    return id;
+  };
+
+  //Validación formulario
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -22,6 +33,20 @@ const Form = () => {
       return;
     }
     setError(false);
+
+    //Objeto de Tareas
+    const objetoTareas = {
+      titulo,
+      fecha,
+      descripcion,
+      id: generarId(),
+    };
+
+    setTareas([...tareas, objetoTareas]);
+
+    setTitulo("");
+    setFecha("");
+    setDescripcion("");
   };
 
   return (
@@ -35,9 +60,9 @@ const Form = () => {
         className='bg-white shadow-md rounded-lg py-10 px-5 mb-10'
       >
         {error && (
-          <div className='bg-red-600 font-bold uppercase text-center text-white p-3 mb-5 rounded-md'>
-            <p>Faltan campos por diligenciar</p>
-          </div>
+          <AlertError>
+            <p>Todos los campos son obligatorios</p>
+          </AlertError>
         )}
         <div className='mb-5'>
           <label
