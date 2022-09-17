@@ -23,6 +23,7 @@ function App() {
 
   const eliminarTarea = (id) => {
     const actualizarTarea = tareas.filter((tarea) => tarea.id !== id);
+    console.log(actualizarTarea);
     setTareas(actualizarTarea);
   };
 

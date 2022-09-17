@@ -85,7 +85,7 @@ const Form = ({ tareas, setTareas, tarea, setTarea }) => {
         )}
         <div className='mb-5'>
           <label
-            htmlForm='titulo'
+            htmlform='titulo'
             className='block text-gray-700 uppercase font-bold'
           >
             Titulo
@@ -102,7 +102,7 @@ const Form = ({ tareas, setTareas, tarea, setTarea }) => {
 
         <div className='mb-5'>
           <label
-            htmlForm='fecha'
+            htmlform='fecha'
             className='block text-gray-700 uppercase font-bold'
           >
             Fecha
@@ -118,7 +118,7 @@ const Form = ({ tareas, setTareas, tarea, setTarea }) => {
 
         <div className='mb-5'>
           <label
-            htmlForm='descripcion'
+            htmlform='descripcion'
             className='block text-gray-700 uppercase font-bold'
           >
             Descripción
